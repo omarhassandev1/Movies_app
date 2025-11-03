@@ -1,70 +1,68 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:movies_app/app/app_routes.dart';
 
-// 🧩 Features Imports
-// Auth Feature Example
-// import 'features/auth/cubit/auth_cubit.dart';
-// import 'features/auth/data/auth_repo.dart';
-// import 'features/auth/data/auth_service.dart';
+import 'package:movies_app/common/theme/app_theme.dart';
+import 'package:movies_app/features/auth/data/auth_api_service.dart';
+import 'package:movies_app/features/auth/view/login/login_screen.dart';
+import 'package:movies_app/features/onboarding/view/get_started_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-// 🎨 App Theme
-import 'common/theme/app_theme.dart';
+import 'features/auth/cubit/auth_cubit.dart';
+import 'features/auth/data/auth_repo.dart';
 
-// 🧭 Screens / Routing
-// import 'features/auth/views/sign_in_screen.dart';
-// import 'features/splash/view/splash_screen.dart';
-
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // initialize repositories / services for each feature
-  // final authService = AuthService();
-  // final authRepo = AuthRepo(authService);
+  // Dio setup
+  final routeApi = Dio(
+    BaseOptions(
+      baseUrl: "https://route-movie-apis.vercel.app/",
+      connectTimeout: const Duration(seconds: 10),
+      receiveTimeout: const Duration(seconds: 10),
+    ),
+  );
 
+  // final moviesApi = Dio(
+  //   BaseOptions(
+  //     baseUrl: "https://yts.mx/api/",
+  //     connectTimeout: const Duration(seconds: 10),
+  //     receiveTimeout: const Duration(seconds: 10),
+  //   ),
+  // );
+
+  // service & repo
+  final authService = AuthApiService(routeApi);
+  final authRepo = AuthRepo(authService);
+
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  bool seenOnboarding = prefs.getBool('seenOnboarding') ?? false;
+
+  // run app with provider above MaterialApp
   runApp(
-    //  MultiRepositoryProvider contains all repositories
-    MultiRepositoryProvider(
+    // repository provider اختياري لكن مفيد لو هتستخدم repo في أماكن تانية
+    MultiBlocProvider(
       providers: [
-        // RepositoryProvider<AuthRepo>.value(value: authRepo),
-        // RepositoryProvider<MoviesRepo>.value(value: moviesRepo),
-        // RepositoryProvider<FavoritesRepo>.value(value: favoritesRepo),
+        BlocProvider<AuthCubit>(create: (context) => AuthCubit(authRepo)),
       ],
-      child: MultiBlocProvider(
-        providers: [
-          // BlocProvider<AuthCubit>(
-          //   create: (context) => AuthCubit(authRepo),
-          // ),
-          // BlocProvider<MoviesCubit>(
-          //   create: (context) => MoviesCubit(moviesRepo),
-          // ),
-        ],
-        child: const MyApp(),
-      ),
+      child: MyApp(seenOnboarding: seenOnboarding),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({super.key, required this.seenOnboarding});
+  final bool seenOnboarding;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: AppTheme.themeData,
       debugShowCheckedModeBanner: false,
-
-      // to add a route add it in the AppRoutes class
+      initialRoute:
+          seenOnboarding ? LoginScreen.routeName : GetStartedScreen.routeName,
       routes: AppRoutes.appRoutes,
-
-      home: const Scaffold(
-        body: Center(
-          child: Text(
-            '🎬 Movies App Base Project\n(Ready for feature integration)',
-            textAlign: TextAlign.center,
-          ),
-        ),
-      ),
     );
   }
 }
