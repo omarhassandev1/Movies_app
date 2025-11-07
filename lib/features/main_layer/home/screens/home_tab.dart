@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/data/models/movie.dart';
 import 'package:movies_app/data/models/repository/movie_repository.dart';
+import 'package:movies_app/features/main_layer/home/bloc/home_bloc.dart';
+import 'package:movies_app/features/main_layer/home/bloc/home_event.dart';
 import 'package:movies_app/features/main_layer/home/bloc/home_state.dart';
 import 'package:movies_app/features/main_layer/home/screens/category_movies.dart';
 import 'package:movies_app/features/movie_details/presentation/movie_detail_screen.dart';
-import '../bloc/home_bloc.dart';
-import '../bloc/home_event.dart';
+
 class HomeTab extends StatelessWidget {
   const HomeTab({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -19,94 +21,135 @@ class HomeTab extends StatelessWidget {
           if (state is HomeLoading) {
             return const Center(child: CircularProgressIndicator(color: Colors.yellow));
           }
+
           if (state is HomeLoaded) {
             return SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: Text(
-                      'Available Now',
-                      style: TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  _buildHorizontalList(
+                  const SizedBox(height: 20),
+
+                  //  (Top Rated)
+                  _buildSection(
                     context: context,
-                    movies: state.featured,
-                    sectionTitle: 'Top Rated',
-                    sectionParams: {
-                      'minimum_rating': 7,
-                      'sort_by': 'rating',
-                      'order_by': 'desc',
-                    },
+                    title: "Top Rated",
+                    movies: state.topRated,
+                    params: {'minimum_rating': 8, 'sort_by': 'rating', 'order_by': 'desc'},
                   ),
-                  const Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: Text(
-                      'Watch Now',
-                      style: TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  _buildHorizontalList(
+
+                  // Latest Movies
+                  _buildSection(
                     context: context,
+                    title: "Latest Movies",
+                    movies: state.latest,
+                    params: {'sort_by': 'date_added', 'order_by': 'desc'},
+                  ),
+
+                  // Most Downloaded
+                  _buildSection(
+                    context: context,
+                    title: "Most Downloaded",
+                    movies: state.mostDownloaded,
+                    params: {'sort_by': 'download_count', 'order_by': 'desc'},
+                  ),
+
+                  //  Action
+                  _buildSection(
+                    context: context,
+                    title: "Action",
                     movies: state.action,
-                    sectionTitle: 'Action',
-                    sectionParams: {
-                      'genre': 'action',
-                      'minimum_rating': 7,
-                      'sort_by': 'download_count',
-                      'order_by': 'desc',
-                    },
+                    params: {'genre': 'action', 'minimum_rating': 7, 'sort_by': 'download_count'},
                   ),
+
+                  // Comedy
+                  _buildSection(
+                    context: context,
+                    title: "Comedy",
+                    movies: state.comedy,
+                    params: {'genre': 'comedy', 'minimum_rating': 7, 'sort_by': 'rating'},
+                  ),
+
+                  // Romance
+                  _buildSection(
+                    context: context,
+                    title: "Romance",
+                    movies: state.romance,
+                    params: {'genre': 'romance', 'minimum_rating': 7, 'sort_by': 'rating'},
+                  ),
+
+                  // Sci-Fi
+                  _buildSection(
+                    context: context,
+                    title: "Sci-Fi",
+                    movies: state.sciFi,
+                    params: {'genre': 'sci-fi', 'minimum_rating': 7, 'sort_by': 'rating'},
+                  ),
+
+                  // Horror
+                  _buildSection(
+                    context: context,
+                    title: "Horror",
+                    movies: state.horror,
+                    params: {'genre': 'horror', 'minimum_rating': 6, 'sort_by': 'download_count'},
+                  ),
+
+                  //  Drama
+                  _buildSection(
+                    context: context,
+                    title: "Drama",
+                    movies: state.drama,
+                    params: {'genre': 'drama', 'minimum_rating': 7, 'sort_by': 'rating'},
+                  ),
+
+                  //  Animation
+                  _buildSection(
+                    context: context,
+                    title: "Animation",
+                    movies: state.animation,
+                    params: {'genre': 'animation', 'minimum_rating': 7, 'sort_by': 'rating'},
+                  ),
+
+                  const SizedBox(height: 30),
                 ],
               ),
             );
           }
+
           return const Center(
-            child: Text('Error loading movies', style: TextStyle(color: Colors.white)),
+            child: Text('Failed to load movies', style: TextStyle(color: Colors.red)),
           );
         },
       ),
     );
   }
-  Widget _buildHorizontalList({
+
+  Widget _buildSection({
     required BuildContext context,
+    required String title,
     required List<Movie> movies,
-    required String sectionTitle,
-    required Map<String, dynamic> sectionParams,
+    required Map<String, dynamic> params,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                sectionTitle,
-                style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-
+              Text(title, style: const TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold)),
               GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (_) => RepositoryProvider.value(
                         value: RepositoryProvider.of<MovieRepository>(context),
-                        child: CategoryMoviesScreen(
-                          title: sectionTitle,
-                          params: sectionParams,
-                        ),
+                        child: CategoryMoviesScreen(title: title, params: {...params, 'limit': 50}),
                       ),
                     ),
                   );
                 },
-                child: const Text(
-                  'See More >',
-                  style: TextStyle(color: Colors.grey, fontSize: 14),
-                ),
+                child: const Text('See More >', style: TextStyle(color: Colors.grey, fontSize: 14)),
               ),
             ],
           ),
@@ -118,18 +161,14 @@ class HomeTab extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 8),
             itemCount: movies.length,
-            itemBuilder: (context, index) {
-              final movie = movies[index];
+            itemBuilder: (context, i) {
+              final movie = movies[i];
               return GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => MovieDetailScreen(movieId: movie.id),
-                    ),
-                  );
-                },
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => MovieDetailScreen(movieId: movie.id)),
+                ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: Column(
                     children: [
                       ClipRRect(
@@ -158,10 +197,7 @@ class HomeTab extends StatelessWidget {
                           textAlign: TextAlign.center,
                         ),
                       ),
-                      Text(
-                        '${movie.rating} stars',
-                        style: const TextStyle(color: Colors.yellow, fontSize: 12),
-                      ),
+                      Text('${movie.rating} stars', style: const TextStyle(color: Colors.yellow, fontSize: 12)),
                     ],
                   ),
                 ),
