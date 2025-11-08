@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
+import '../../../../common/theme/app_colors.dart';
 
-import '../theme/app_colors.dart';
-
-class CustomMainButton extends StatelessWidget {
-  const CustomMainButton({
+class CustomOutlinedButton extends StatelessWidget {
+  const CustomOutlinedButton({
     super.key,
     required this.onPressed,
     required this.text,
     this.fillColor,
     this.textColor,
-    this.icon
   });
 
   final void Function() onPressed;
   final String text;
   final Color? fillColor;
   final Color? textColor;
-  final Widget? icon;
 
   @override
   Widget build(BuildContext context) {
@@ -25,28 +22,20 @@ class CustomMainButton extends StatelessWidget {
       child: FilledButton(
         onPressed: onPressed,
         style: FilledButton.styleFrom(
-          backgroundColor: fillColor ?? AppColors.mainColor,
+          backgroundColor: AppColors.blackColor,
           padding: const EdgeInsets.symmetric(vertical: 16),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
+            side: const BorderSide(color: AppColors.mainColor,width: 2)
           ),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          spacing: 10,
-          children: [
-            if(icon!=null)
-              icon!
-            ,
-            Text(
-              text,
-              style: TextStyle(
-                color: textColor ?? AppColors.blackColor,
-                fontSize: 20,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ],
+        child: Text(
+          text,
+          style: const TextStyle(
+            color: AppColors.mainColor,
+            fontSize: 20,
+            fontWeight: FontWeight.w500,
+          ),
         ),
       ),
     );
