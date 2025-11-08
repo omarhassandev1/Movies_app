@@ -7,6 +7,7 @@ import 'package:movies_app/features/auth/view/signup/signup_screen.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../cubit/auth_cubit.dart';
 import '../../cubit/auth_state.dart';
+import '../forget_password/verify_email.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -77,7 +78,9 @@ class LoginScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).pushNamed(VerifyEmailScreen.routeName);
+                        },
                         child: Text(
                           'Forget Password?',
                           style: Theme.of(context).textTheme.bodySmall!
