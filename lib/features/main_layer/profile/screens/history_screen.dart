@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/common/theme/app_colors.dart';
-import 'package:movies_app/features/main_layer/profile/profile.dart';
+import 'package:movies_app/features/main_layer/profile/screens/profile.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class HistoryScreen extends StatelessWidget {
@@ -14,9 +14,9 @@ class HistoryScreen extends StatelessWidget {
     final screenHeight = mediaQuery.size.height;
 
     final List<String> movies = [
-      'assets/common/avaters/avater1.png',
-      'assets/common/avaters/avater2.png',
-      'assets/common/avaters/avater3.png',
+      // 'assets/common/avaters/avater1.png',
+      // 'assets/common/avaters/avater2.png',
+      // 'assets/common/avaters/avater3.png',
     ];
 
     return Scaffold(
@@ -26,7 +26,7 @@ class HistoryScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
 
-            /// ----------- TOP BAR -----------
+       
             Container(
               color: AppColors.darkGray,
               padding: EdgeInsets.symmetric(
@@ -36,7 +36,7 @@ class HistoryScreen extends StatelessWidget {
               child: Row(
                 children: [
 
-                  // ********* LEFT - WATCH LIST *********
+
                   Expanded(
                     child: GestureDetector(
                       onTap: () {
@@ -65,7 +65,7 @@ class HistoryScreen extends StatelessWidget {
                     ),
                   ),
 
-                  // ********* RIGHT - HISTORY *********
+
                   Expanded(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -97,7 +97,7 @@ class HistoryScreen extends StatelessWidget {
               ),
             ),
 
-            /// ----------- GRID OF MOVIES -----------
+        
             Expanded(
               child: Padding(
                 padding: EdgeInsets.all(screenWidth * 0.03),

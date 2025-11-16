@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movies_app/common/theme/app_colors.dart';
 import 'package:movies_app/common/widgets/custom_main_button.dart';
-import 'package:movies_app/features/main_layer/profile/ubdate_profile.dart';
-import 'package:movies_app/features/main_layer/profile/history_screen.dart';
+import 'package:movies_app/features/main_layer/profile/screens/ubdate_profile.dart';
+import 'package:movies_app/features/main_layer/profile/screens/history_screen.dart';
 import 'package:flutter/services.dart';
 
 class ProfileScreen extends StatefulWidget {

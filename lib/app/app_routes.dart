@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/features/main_layer/profile/history_screen.dart';
-import 'package:movies_app/features/main_layer/profile/profile.dart';
-import 'package:movies_app/features/main_layer/profile/ubdate_profile.dart';
+import 'package:movies_app/features/main_layer/profile/screens/history_screen.dart';
+import 'package:movies_app/features/main_layer/profile/screens/profile.dart';
+import 'package:movies_app/features/main_layer/profile/screens/ubdate_profile.dart';
+
 
 
 class AppRoutes {

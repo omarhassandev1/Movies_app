@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/app/app_routes.dart';
-import 'package:movies_app/features/main_layer/profile/profile.dart';
+import 'package:movies_app/features/main_layer/profile/screens/profile.dart';
 import 'common/theme/app_theme.dart';
 
 // DummyCubit placeholder
