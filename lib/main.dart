@@ -10,11 +10,12 @@ import 'package:movies_app/features/main_layer/profile/view/screens/profile.dart
 import 'package:movies_app/common/theme/app_theme.dart';
 
 // ======== Auth + Onboarding imports (from dev) ========
-import 'package:movies_app/features/auth/data/auth_api_service.dart';
+// import 'package:movies_app/features/auth/data/auth_api_service.dart';
 // import 'package:movies_app/features/auth/view/login/login_screen.dart';
 // import 'package:movies_app/features/onboarding/view/get_started_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'features/auth/cubit/auth_cubit.dart';
+import 'features/auth/data/auth_api_service.dart';
 import 'features/auth/data/auth_repo.dart';
 
 void main() async {
