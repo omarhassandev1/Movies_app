@@ -3,7 +3,7 @@ class UserModel {
   final String name;
   final String email;
   final String cellphone;
-  final int avatarNo;
+  final int avaterId;
   final String? token;
 
   UserModel({
@@ -11,7 +11,7 @@ class UserModel {
     required this.name,
     required this.email,
     required this.cellphone,
-    required this.avatarNo,
+    required this.avaterId,
     this.token,
   });
 
@@ -20,8 +20,8 @@ class UserModel {
       id: json['_id']?.toString() ?? '',
       name: json['name'] ?? '',
       email: json['email'] ?? '',
-      cellphone: json['cellphone'] ?? '',
-      avatarNo: json['avatarNo'] ?? 1,
+      cellphone: json['phone'] ?? '',
+      avaterId: json['avaterId'] ?? 1,
       token: json['token'],
     );
   }
@@ -30,8 +30,8 @@ class UserModel {
     "id": id,
     "name": name,
     "email": email,
-    "cellphone": cellphone,
-    "avatarNo": avatarNo,
+    "phone": cellphone,
+    "avaterId": avaterId,
     "token": token,
   };
 }

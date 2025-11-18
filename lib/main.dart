@@ -4,15 +4,15 @@ import 'package:dio/dio.dart';
 import 'package:movies_app/app/app_routes.dart';
 
 // ======== Profile imports (from feature/profile) ========
-import 'package:movies_app/features/main_layer/profile/screens/profile.dart';
+import 'package:movies_app/features/main_layer/profile/view/screens/profile.dart';
 
 // ======== Shared / Theme ========
 import 'package:movies_app/common/theme/app_theme.dart';
 
 // ======== Auth + Onboarding imports (from dev) ========
 import 'package:movies_app/features/auth/data/auth_api_service.dart';
-import 'package:movies_app/features/auth/view/login/login_screen.dart';
-import 'package:movies_app/features/onboarding/view/get_started_screen.dart';
+// import 'package:movies_app/features/auth/view/login/login_screen.dart';
+// import 'package:movies_app/features/onboarding/view/get_started_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'features/auth/cubit/auth_cubit.dart';
 import 'features/auth/data/auth_repo.dart';
@@ -61,8 +61,8 @@ class MyApp extends StatelessWidget {
       routes: AppRoutes.appRoutes,
 
       // === dev branch logic for onboarding ===
-      initialRoute:
-          seenOnboarding ? LoginScreen.routeName : GetStartedScreen.routeName,
+      initialRoute: ProfileScreen.routeName
+          // seenOnboarding ? LoginScreen.routeName : GetStartedScreen.routeName,
     );
   }
 }

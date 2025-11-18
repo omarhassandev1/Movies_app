@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
 // === Imports from feature/profile ===
-import 'package:movies_app/features/main_layer/profile/screens/history_screen.dart';
-import 'package:movies_app/features/main_layer/profile/screens/profile.dart';
-import 'package:movies_app/features/main_layer/profile/screens/ubdate_profile.dart';
+import 'package:movies_app/features/main_layer/profile/view/screens/profile.dart';
+// import 'package:movies_app/features/main_layer/profile/view/screens/update_profile.dart';
 
 // === Imports from dev branch (auth + onboarding) ===
 import 'package:movies_app/features/auth/view/login/login_screen.dart';
@@ -18,8 +17,6 @@ class AppRoutes {
   static final Map<String, WidgetBuilder> appRoutes = {
     // === Profile routes ===
     ProfileScreen.routeName: (context) => const ProfileScreen(),
-    UpdateProfileScreen.routeName: (context) => const UpdateProfileScreen(),
-    HistoryScreen.routeName: (context) => const HistoryScreen(),
 
     // === Auth routes ===
     LoginScreen.routeName: (context) => const LoginScreen(),
