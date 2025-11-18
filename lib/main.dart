@@ -1,43 +1,68 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:movies_app/app/app_routes.dart';
+
+// ======== Profile imports (from feature/profile) ========
 import 'package:movies_app/features/main_layer/profile/screens/profile.dart';
-import 'common/theme/app_theme.dart';
 
-// DummyCubit placeholder
-class DummyCubit extends Cubit<int> {
-  DummyCubit() : super(0);
-}
+// ======== Shared / Theme ========
+import 'package:movies_app/common/theme/app_theme.dart';
 
-void main() {
+// ======== Auth + Onboarding imports (from dev) ========
+import 'package:movies_app/features/auth/data/auth_api_service.dart';
+import 'package:movies_app/features/auth/view/login/login_screen.dart';
+import 'package:movies_app/features/onboarding/view/get_started_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'features/auth/cubit/auth_cubit.dart';
+import 'features/auth/data/auth_repo.dart';
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  // === Dio setup ===
+  final routeApi = Dio(
+    BaseOptions(
+      baseUrl: "https://route-movie-apis.vercel.app/",
+      connectTimeout: const Duration(seconds: 10),
+      receiveTimeout: const Duration(seconds: 10),
+    ),
+  );
+
+  // === Auth service & repo (from dev branch) ===
+  final authService = AuthApiService(routeApi);
+  final authRepo = AuthRepo(authService);
+
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  bool seenOnboarding = prefs.getBool('seenOnboarding') ?? false;
+
+  // === Run the app with providers ===
   runApp(
-    MultiRepositoryProvider(
+    MultiBlocProvider(
       providers: [
-        RepositoryProvider<Object>(create: (_) => Object()), // placeholder repository
+        BlocProvider<AuthCubit>(create: (_) => AuthCubit(authRepo)),
       ],
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider<DummyCubit>(create: (_) => DummyCubit()), // placeholder cubit
-        ],
-        child: const MyApp(),
-      ),
+      child: MyApp(seenOnboarding: seenOnboarding),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({super.key, required this.seenOnboarding});
+  final bool seenOnboarding;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: AppTheme.themeData,
       debugShowCheckedModeBanner: false,
+
+      // === Keep AppRoutes from both branches ===
       routes: AppRoutes.appRoutes,
-      home: const ProfileScreen(),
+
+      // === dev branch logic for onboarding ===
+      initialRoute:
+          seenOnboarding ? LoginScreen.routeName : GetStartedScreen.routeName,
     );
   }
 }
-

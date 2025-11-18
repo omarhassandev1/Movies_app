@@ -10,6 +10,9 @@ class AppTheme {
         fontSize: 16.0,
         fontWeight: FontWeight.w400,
         color: AppColors.mainColor,
+      ),
+      iconTheme: IconThemeData(
+        color: AppColors.mainColor
       )
     ),
     scaffoldBackgroundColor: AppColors.blackColor,
