@@ -8,6 +8,8 @@ class ProfileLoading extends ProfileState {}
 
 class ProfileUpdateSuccess extends ProfileState {}
 
+class ProfileDeleteSuccess extends ProfileState {}
+
 class ProfileGetSuccess extends ProfileState {
   final UserModel user;
 

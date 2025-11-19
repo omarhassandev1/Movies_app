@@ -23,4 +23,11 @@ class ProfileApiServices {
       options: Options(headers: {'Authorization': 'Bearer $token'}),
     );
   }
+
+  Future<Response> deleteProfile({required String token}) async {
+    return dio.delete(
+      RouteApiConsts.deleteProfileEndPoint,
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
+    );
+  }
 }
