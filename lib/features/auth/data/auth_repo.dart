@@ -67,4 +67,25 @@ class AuthRepo {
       throw Exception(response.data?['message'] ?? 'Registration failed');
     }
   }
+
+
+  Future<bool> resetPassword(Map<String,dynamic> data) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? authToken = prefs.getString('token');
+    if (authToken == null) {
+      throw Exception('Authentication token not found. User needs to sign in.');
+    }
+
+    final response = await authService.patchResetPassword(data,authToken);
+    if (response.statusCode == 200 && response.data != null) {
+      final message = response.data['message'];
+      if (message == 'Password updated successfully') {
+        return true;
+      } else {
+        throw Exception('Could not update the user\'s password');
+      }
+    } else {
+      throw Exception('something went wrong');
+    }
+  }
 }

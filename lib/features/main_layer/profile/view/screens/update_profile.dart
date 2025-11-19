@@ -6,6 +6,7 @@ import 'package:movies_app/common/widgets/custom_textfield.dart';
 import 'package:movies_app/data/models/user_model.dart';
 import 'package:movies_app/features/main_layer/profile/cubit/profile_cubit.dart';
 import 'package:movies_app/features/main_layer/profile/cubit/profile_state.dart';
+import 'package:movies_app/features/main_layer/profile/view/screens/reset_password.dart';
 
 import '../../../../../gen/assets.gen.dart';
 
@@ -114,7 +115,9 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                           Align(
                             alignment: Alignment.centerLeft,
                             child: GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.of(context).pushNamed(ProfileResetPassword.routeName);
+                              },
                               child: const Text(
                                 'Reset Password',
                                 style: TextStyle(

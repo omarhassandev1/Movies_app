@@ -17,8 +17,14 @@ class AuthApiService extends AuthService {
   }
 
   @override
-  Future<Response> postResetPassword(Map<String, dynamic> data) async {
-    return await dio.post(RouteApiConsts.resetPasswordEndPoint, data: data);
+  Future<Response> patchResetPassword(Map<String, dynamic> data, String token) async {
+    return dio.patch(
+      RouteApiConsts.resetPasswordEndPoint,
+      data: data,
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
+    );
   }
+
+
 
 }
