@@ -6,4 +6,6 @@ class RouteApiConsts{
   static const String getProfileEndPoint = 'profile';
   static const String updateProfileEndPoint = 'profile';
   static const String deleteProfileEndPoint = 'profile';
+  static const String getAllFavoritesMovies = 'favorites/all';
+
 }
