@@ -13,6 +13,7 @@ class CustomTextField extends StatefulWidget {
     this.controller,
     this.isPassword = false,
     this.onChanged,
+     this.keyboardType,
   });
 
   final String? hintText;
@@ -23,6 +24,7 @@ class CustomTextField extends StatefulWidget {
   final TextEditingController? controller;
   final bool isPassword;
   void Function(String)? onChanged;
+  final TextInputType? keyboardType;
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -43,6 +45,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         color: AppColors.whiteColor,
       ),
       obscureText: isPassword,
+      keyboardType: widget.keyboardType, 
       decoration: InputDecoration(
         filled: true,
         fillColor: AppColors.darkGray,
