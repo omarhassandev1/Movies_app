@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:movies_app/app/app_routes.dart';
+import 'package:movies_app/common/consts/api_consts.dart';
 
 // ======== Profile imports (from feature/profile) ========
 import 'package:movies_app/features/main_layer/profile/view/screens/profile.dart';
@@ -24,7 +25,7 @@ void main() async {
   // === Dio setup ===
   final routeApi = Dio(
     BaseOptions(
-      baseUrl: "https://route-movie-apis.vercel.app/",
+      baseUrl: RouteApiConsts.apiBaseUrl,
       connectTimeout: const Duration(seconds: 10),
       receiveTimeout: const Duration(seconds: 10),
     ),

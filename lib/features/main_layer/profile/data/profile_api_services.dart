@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:movies_app/common/consts/api_consts.dart';
 
 class ProfileApiServices {
   final Dio dio;
@@ -7,7 +8,7 @@ class ProfileApiServices {
 
   Future<Response> getProfile({required String token}) async {
     return dio.get(
-      'profile',
+      RouteApiConsts.getProfileEndPoint,
       options: Options(headers: {'Authorization': 'Bearer $token'}),
     );
   }
@@ -17,7 +18,7 @@ class ProfileApiServices {
     required String token,
   }) async {
     return dio.patch(
-      'profile',
+      RouteApiConsts.updateProfileEndPoint,
       data: data,
       options: Options(headers: {'Authorization': 'Bearer $token'}),
     );
