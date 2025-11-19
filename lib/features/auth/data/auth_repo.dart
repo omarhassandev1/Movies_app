@@ -24,6 +24,7 @@ class AuthRepo {
         if (token != null && message == 'Success Login') {
           final prefs = await SharedPreferences.getInstance();
           await prefs.setString('token', token);
+          await prefs.setBool('isLoggedIn', true);
           return {'token': token, 'message': message};
         } else {
           throw Exception('Token missing in response: $data');
