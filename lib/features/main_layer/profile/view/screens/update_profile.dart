@@ -116,7 +116,9 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                             alignment: Alignment.centerLeft,
                             child: GestureDetector(
                               onTap: () {
-                                Navigator.of(context).pushNamed(ProfileResetPassword.routeName);
+                                Navigator.of(
+                                  context,
+                                ).pushNamed(ProfileResetPassword.routeName);
                               },
                               child: const Text(
                                 'Reset Password',
@@ -139,38 +141,49 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                     horizontal: screenWidth * 0.05,
                     vertical: screenHeight * 0.03,
                   ),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        width: double.infinity,
-                        height: screenHeight * 0.06,
-                        child: CustomMainButton(
-                          text: 'Delete Account',
-                          onPressed: () {},
-                          fillColor: AppColors.redColor,
-                          textColor: AppColors.whiteColor,
-                        ),
-                      ),
-                      SizedBox(height: screenHeight * 0.015),
-                      SizedBox(
-                        width: double.infinity,
-                        height: screenHeight * 0.06,
-                        child: CustomMainButton(
-                          text: 'Update Data',
-                          onPressed: () {
-                            context.read<ProfileCubit>().updateProfile({
-                              "email": emailController.text,
-                              "avaterId": selectedAvatar,
-                              "name": nameController.text,
-                              "phone": phoneController.text,
-                            });
-                          },
-                          fillColor: AppColors.mainColor,
-                          textColor: AppColors.blackColor,
-                        ),
-                      ),
-                    ],
-                  ),
+                  child:
+                      state is ProfileLoading
+                          ? const Center(
+                            child: CircularProgressIndicator(
+                              color: AppColors.mainColor,
+                            ),
+                          )
+                          : Column(
+                            children: [
+                              SizedBox(
+                                width: double.infinity,
+                                height: screenHeight * 0.06,
+                                child: CustomMainButton(
+                                  text: 'Delete Account',
+                                  onPressed: () {
+                                    context
+                                        .read<ProfileCubit>()
+                                        .deleteProfile();
+                                  },
+                                  fillColor: AppColors.redColor,
+                                  textColor: AppColors.whiteColor,
+                                ),
+                              ),
+                              SizedBox(height: screenHeight * 0.015),
+                              SizedBox(
+                                width: double.infinity,
+                                height: screenHeight * 0.06,
+                                child: CustomMainButton(
+                                  text: 'Update Data',
+                                  onPressed: () {
+                                    context.read<ProfileCubit>().updateProfile({
+                                      "email": emailController.text,
+                                      "avaterId": selectedAvatar,
+                                      "name": nameController.text,
+                                      "phone": phoneController.text,
+                                    });
+                                  },
+                                  fillColor: AppColors.mainColor,
+                                  textColor: AppColors.blackColor,
+                                ),
+                              ),
+                            ],
+                          ),
                 ),
               ],
             ),

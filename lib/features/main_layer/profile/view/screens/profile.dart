@@ -1,18 +1,17 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:movies_app/common/consts/api_consts.dart';
 import 'package:movies_app/common/theme/app_colors.dart';
 import 'package:movies_app/common/widgets/custom_main_button.dart';
 import 'package:movies_app/data/models/user_model.dart';
+import 'package:movies_app/features/favorites/cubits/fav_cubit.dart';
+import 'package:movies_app/features/favorites/cubits/fav_state.dart';
 import 'package:movies_app/features/main_layer/profile/cubit/profile_cubit.dart';
 import 'package:movies_app/features/main_layer/profile/cubit/profile_state.dart';
-import 'package:movies_app/features/main_layer/profile/data/profile_api_services.dart';
-import 'package:movies_app/features/main_layer/profile/data/profile_repo.dart';
 import 'package:movies_app/features/main_layer/profile/view/screens/update_profile.dart';
 import 'package:flutter/services.dart';
 import '../../../../../gen/assets.gen.dart';
+import '../../../../favorites/view/favs_grid_view.dart';
 
 class ProfileTab extends StatefulWidget {
   const ProfileTab({super.key});
@@ -23,24 +22,20 @@ class ProfileTab extends StatefulWidget {
 }
 
 class _ProfileTabState extends State<ProfileTab> {
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<ProfileCubit>().getProfileData();
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final screenWidth = mediaQuery.size.width;
     late UserModel currentUser;
 
-    return BlocProvider(
-      create:
-          (context) => ProfileCubit(
-            profileRepo: ProfileRepo(
-              apiServices: ProfileApiServices(
-                dio: Dio(BaseOptions(baseUrl: RouteApiConsts.apiBaseUrl)),
-              ),
-            ),
-          )..getProfileData(),
-      child: Builder(
-        builder:
-            (context) => DefaultTabController(
+    return DefaultTabController(
               length: 2,
               child: Scaffold(
                 backgroundColor: AppColors.blackColor,
@@ -80,67 +75,76 @@ class _ProfileTabState extends State<ProfileTab> {
                                       ),
                                       SizedBox(width: screenWidth * 0.05),
                                       Expanded(
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Text(
-                                                  '12',
-                                                  style: TextStyle(
-                                                    color: AppColors.whiteColor,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize:
-                                                        screenWidth * 0.06,
+                                        child: BlocBuilder<FavCubit,FavState>(
+                                          builder: (context, state) {
+                                            int favCount = 0;
+
+                                            if (state is FavoriteGetSuccess) {
+                                              favCount = state.favMovies.length;
+                                            }
+                                            return Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    favCount.toString(),
+                                                    style: TextStyle(
+                                                      color: AppColors.whiteColor,
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize:
+                                                          screenWidth * 0.06,
+                                                    ),
                                                   ),
-                                                ),
-                                                SizedBox(
-                                                  height: screenWidth * 0.015,
-                                                ),
-                                                Text(
-                                                  'Watch List',
-                                                  style: TextStyle(
-                                                    color: AppColors.whiteColor,
-                                                    fontSize:
-                                                        screenWidth * 0.035,
+                                                  SizedBox(
+                                                    height: screenWidth * 0.015,
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                            Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Text(
-                                                  '10',
-                                                  style: TextStyle(
-                                                    color: AppColors.whiteColor,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize:
-                                                        screenWidth * 0.06,
+                                                  Text(
+                                                    'Watch List',
+                                                    style: TextStyle(
+                                                      color: AppColors.whiteColor,
+                                                      fontSize:
+                                                          screenWidth * 0.035,
+                                                    ),
                                                   ),
-                                                ),
-                                                SizedBox(
-                                                  height: screenWidth * 0.015,
-                                                ),
-                                                Text(
-                                                  'History',
-                                                  style: TextStyle(
-                                                    color: AppColors.whiteColor,
-                                                    fontSize:
-                                                        screenWidth * 0.035,
+                                                ],
+                                              ),
+                                              Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    '10',
+                                                    style: TextStyle(
+                                                      color: AppColors.whiteColor,
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize:
+                                                          screenWidth * 0.06,
+                                                    ),
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
+                                                  SizedBox(
+                                                    height: screenWidth * 0.015,
+                                                  ),
+                                                  Text(
+                                                    'History',
+                                                    style: TextStyle(
+                                                      color: AppColors.whiteColor,
+                                                      fontSize:
+                                                          screenWidth * 0.035,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          );
+                                          },
                                         ),
                                       ),
                                     ],
@@ -292,15 +296,22 @@ class _ProfileTabState extends State<ProfileTab> {
                     Expanded(
                       child: TabBarView(
                         children: [
-                          Center(child: Assets.common.popcorn.image()),
-                          Center(child: Assets.common.popcorn.image()),
+                          const Column(
+                            children: [
+                              FavGridView(),
+                            ],
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Center(child: Assets.common.popcorn.image()),
+                            ],
+                          ),
                         ],
                       ),
                     ),
                   ],
                 ),
-              ),
-            ),
       ),
     );
   }
