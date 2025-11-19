@@ -13,10 +13,13 @@ import 'package:movies_app/features/auth/view/signup/signup_screen.dart';
 import 'package:movies_app/features/onboarding/view/get_started_screen.dart';
 import 'package:movies_app/features/onboarding/view/onboarding_screen.dart';
 
+import '../features/main_layer/profile/view/screens/reset_password.dart';
+
 class AppRoutes {
   static final Map<String, WidgetBuilder> appRoutes = {
     // === Profile routes ===
-    ProfileScreen.routeName: (context) => const ProfileScreen(),
+    ProfileTab.routeName: (context) => const ProfileTab(),
+    ProfileResetPassword.routeName: (context) => const ProfileResetPassword(),
 
     // === Auth routes ===
     LoginScreen.routeName: (context) => const LoginScreen(),

@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
       routes: AppRoutes.appRoutes,
 
       // === dev branch logic for onboarding ===
-      initialRoute: ProfileScreen.routeName
+      initialRoute: ProfileTab.routeName
           // seenOnboarding ? LoginScreen.routeName : GetStartedScreen.routeName,
     );
   }
