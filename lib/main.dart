@@ -4,6 +4,9 @@ import 'package:movies_app/app/app_routes.dart';
 import 'package:movies_app/features/favorites/cubits/fav_cubit.dart';
 import 'package:movies_app/features/main_layer/profile/cubit/profile_cubit.dart';
 
+// ======== Feature import (from home-feature) ========
+import 'package:movies_app/features/main_layer/home/screens/home_screen.dart'; 
+
 // ======== Profile imports (from feature/profile) ========
 import 'package:movies_app/features/main_layer/profile/view/screens/profile.dart';
 
@@ -45,17 +48,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: AppTheme.themeData,
       debugShowCheckedModeBanner: false,
 
-      // === Keep AppRoutes from both branches ===
+      // تطبيق الثيم الداكن الذي كان موجوداً في home-feature
+      theme: ThemeData.dark(),
+
+      // === Keep AppRoutes from dev branch ===
       routes: AppRoutes.appRoutes,
 
-      // === dev branch logic for onboarding ===
+      // === dev branch logic for onboarding and initial route ===
       initialRoute:
       isLoggedIn?
       ProfileTab.routeName:
           seenOnboarding ? LoginScreen.routeName : GetStartedScreen.routeName,
+          
     );
   }
 }
