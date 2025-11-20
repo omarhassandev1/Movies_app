@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/app/app_routes.dart';
+import 'package:movies_app/features/main_layer/browse/view/browse_tab.dart';
 
 // 🧩 Features Imports
 // Auth Feature Example
@@ -24,25 +25,23 @@ void main() {
 
   runApp(
     //  MultiRepositoryProvider contains all repositories
-    MultiRepositoryProvider(
-      providers: [
-        // RepositoryProvider<AuthRepo>.value(value: authRepo),
-        // RepositoryProvider<MoviesRepo>.value(value: moviesRepo),
-        // RepositoryProvider<FavoritesRepo>.value(value: favoritesRepo),
-      ],
-      child: MultiBlocProvider(
-        providers: [
-          // BlocProvider<AuthCubit>(
-          //   create: (context) => AuthCubit(authRepo),
-          // ),
-          // BlocProvider<MoviesCubit>(
-          //   create: (context) => MoviesCubit(moviesRepo),
-          // ),
-        ],
-        child: const MyApp(),
-      ),
-    ),
-  );
+    // MultiRepositoryProvider(
+    //   providers: [
+    //     // RepositoryProvider<AuthRepo>.value(value: authRepo),
+    //     // RepositoryProvider<MoviesRepo>.value(value: moviesRepo),
+    //     // RepositoryProvider<FavoritesRepo>.value(value: favoritesRepo),
+    //   ],
+    //   child: MultiBlocProvider(
+    //     providers: [
+    //       // BlocProvider<AuthCubit>(
+    //       //   create: (context) => AuthCubit(authRepo),
+    //       // ),
+    //       // BlocProvider<MoviesCubit>(
+    //       //   create: (context) => MoviesCubit(moviesRepo),
+    //       // ),
+    //     ],
+         const MyApp());
+
 }
 
 class MyApp extends StatelessWidget {
@@ -57,14 +56,7 @@ class MyApp extends StatelessWidget {
       // to add a route add it in the AppRoutes class
       routes: AppRoutes.appRoutes,
 
-      home: const Scaffold(
-        body: Center(
-          child: Text(
-            '🎬 Movies App Base Project\n(Ready for feature integration)',
-            textAlign: TextAlign.center,
-          ),
-        ),
-      ),
+      home: BrowseTab(),
     );
   }
 }
