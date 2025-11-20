@@ -62,4 +62,23 @@ class AuthCubit extends Cubit<AuthState> {
       emit(AuthFailure(e.toString()));
     }
   }
+
+  Future<void> resetPassword(Map<String,dynamic> data) async {
+    emit(AuthLoading());
+    try {
+      await repo.resetPassword(data);
+      emit(AuthPassUpdated());
+    } on DioException catch (e) {
+      final data = e.response?.data;
+      var message = data?['message'];
+
+      if (message is List) {
+        message = message.join(',\n');
+      }
+      emit(AuthFailure(message ?? 'Something went wrong'));
+    } catch (e) {
+      emit(AuthFailure(e.toString()));
+    }
+  }
+
 }

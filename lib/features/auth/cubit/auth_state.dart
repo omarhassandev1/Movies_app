@@ -4,6 +4,8 @@ class AuthInitial extends AuthState {}
 
 class AuthLoading extends AuthState {}
 
+class AuthPassUpdated extends AuthState {}
+
 class AuthSuccess extends AuthState {
   final String message;
   final dynamic data;

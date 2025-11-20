@@ -4,6 +4,7 @@ import 'package:movies_app/common/theme/app_colors.dart';
 import 'package:movies_app/common/widgets/custom_main_button.dart';
 import 'package:movies_app/common/widgets/custom_textfield.dart';
 import 'package:movies_app/features/auth/view/signup/signup_screen.dart';
+import 'package:movies_app/features/main_layer/profile/view/screens/profile.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../cubit/auth_cubit.dart';
 import '../../cubit/auth_state.dart';
@@ -34,7 +35,9 @@ class LoginScreen extends StatelessWidget {
               backgroundColor: AppColors.greenColor,
             ),
           );
-          Navigator.of(context).pushReplacementNamed('/home');
+          Navigator.of(
+            context,
+          ).pushReplacementNamed(ProfileTab.routeName);
         } else if (state is AuthFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -79,7 +82,9 @@ class LoginScreen extends StatelessWidget {
                     children: [
                       TextButton(
                         onPressed: () {
-                          Navigator.of(context).pushNamed(VerifyEmailScreen.routeName);
+                          Navigator.of(
+                            context,
+                          ).pushNamed(VerifyEmailScreen.routeName);
                         },
                         child: Text(
                           'Forget Password?',
@@ -118,7 +123,9 @@ class LoginScreen extends StatelessWidget {
                       const Text('Don\'t have an account?'),
                       TextButton(
                         onPressed: () {
-                          Navigator.of(context).pushNamed(SignUpScreen.routeName);
+                          Navigator.of(
+                            context,
+                          ).pushNamed(SignUpScreen.routeName);
                         },
                         child: const Text(
                           'Create one',
@@ -136,14 +143,30 @@ class LoginScreen extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Expanded(child: Divider(color: AppColors.mainColor, endIndent: 10,thickness: 2,)),
+                        Expanded(
+                          child: Divider(
+                            color: AppColors.mainColor,
+                            endIndent: 10,
+                            thickness: 2,
+                          ),
+                        ),
                         Text('OR'),
-                        Expanded(child: Divider(color: AppColors.mainColor, indent: 10,thickness: 2,)),
+                        Expanded(
+                          child: Divider(
+                            color: AppColors.mainColor,
+                            indent: 10,
+                            thickness: 2,
+                          ),
+                        ),
                       ],
                     ),
                   ),
                   const SizedBox(height: 28),
-                  CustomMainButton(onPressed: (){}, text: 'Login with Google',icon: Assets.onboardingAuth.icons.google.svg(),)
+                  CustomMainButton(
+                    onPressed: () {},
+                    text: 'Login with Google',
+                    icon: Assets.onboardingAuth.icons.google.svg(),
+                  ),
                 ],
               ),
             ),

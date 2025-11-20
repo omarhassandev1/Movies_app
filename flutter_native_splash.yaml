@@ -1,0 +1,15 @@
+flutter_native_splash:
+  color: "#121312"
+
+  image: assets/onboarding-auth/splash_screen/spash_image.png
+  branding: assets/onboarding-auth/splash_screen/branding.png
+
+
+  branding_mode: bottom
+
+  android_12:
+    image: assets/onboarding-auth/splash_screen/spash_image.png
+
+    color: "#121312"
+
+  ios: true
