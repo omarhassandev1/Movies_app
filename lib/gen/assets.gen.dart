@@ -291,18 +291,17 @@ class $AssetsOnboardingAuthOnboardingWallpapersGen {
 class $AssetsOnboardingAuthSplashScreenGen {
   const $AssetsOnboardingAuthSplashScreenGen();
 
-  /// File path: assets/onboarding-auth/splash_screen/splash_branding.svg
-  SvgGenImage get splashBranding => const SvgGenImage(
-    'assets/onboarding-auth/splash_screen/splash_branding.svg',
-  );
+  /// File path: assets/onboarding-auth/splash_screen/branding.png
+  AssetGenImage get branding =>
+      const AssetGenImage('assets/onboarding-auth/splash_screen/branding.png');
 
-  /// File path: assets/onboarding-auth/splash_screen/splash_image.svg
-  SvgGenImage get splashImage => const SvgGenImage(
-    'assets/onboarding-auth/splash_screen/splash_image.svg',
+  /// File path: assets/onboarding-auth/splash_screen/spash_image.png
+  AssetGenImage get spashImage => const AssetGenImage(
+    'assets/onboarding-auth/splash_screen/spash_image.png',
   );
 
   /// List of all assets
-  List<SvgGenImage> get values => [splashBranding, splashImage];
+  List<AssetGenImage> get values => [branding, spashImage];
 }
 
 class Assets {

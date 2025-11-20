@@ -24,6 +24,7 @@ class AuthRepo {
         if (token != null && message == 'Success Login') {
           final prefs = await SharedPreferences.getInstance();
           await prefs.setString('token', token);
+          await prefs.setBool('isLoggedIn', true);
           return {'token': token, 'message': message};
         } else {
           throw Exception('Token missing in response: $data');
@@ -65,6 +66,27 @@ class AuthRepo {
       }
     } else {
       throw Exception(response.data?['message'] ?? 'Registration failed');
+    }
+  }
+
+
+  Future<bool> resetPassword(Map<String,dynamic> data) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? authToken = prefs.getString('token');
+    if (authToken == null) {
+      throw Exception('Authentication token not found. User needs to sign in.');
+    }
+
+    final response = await authService.patchResetPassword(data,authToken);
+    if (response.statusCode == 200 && response.data != null) {
+      final message = response.data['message'];
+      if (message == 'Password updated successfully') {
+        return true;
+      } else {
+        throw Exception('Could not update the user\'s password');
+      }
+    } else {
+      throw Exception('something went wrong');
     }
   }
 }

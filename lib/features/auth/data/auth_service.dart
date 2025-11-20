@@ -7,8 +7,7 @@ abstract class AuthService {
 
   Future<Response> postLogin(Map<String, dynamic> data);
 
-  Future<Response> postRegister(Map<String, dynamic> data) ;
+  Future<Response> postRegister(Map<String, dynamic> data);
 
-  Future<Response> postResetPassword(Map<String, dynamic> data) ;
-
+  Future<Response> patchResetPassword(Map<String, dynamic> data, String token);
 }

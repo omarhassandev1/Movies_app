@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:movies_app/common/consts/api_consts.dart';
 
 import 'auth_service.dart';
 
@@ -7,17 +8,23 @@ class AuthApiService extends AuthService {
 
   @override
   Future<Response> postLogin(Map<String, dynamic> data) async {
-    return await dio.post('auth/login', data: data);
+    return await dio.post(RouteApiConsts.loginEndPoint, data: data);
   }
 
   @override
   Future<Response> postRegister(Map<String, dynamic> data) async {
-    return await dio.post('auth/register', data: data);
+    return await dio.post(RouteApiConsts.registerEndPoint, data: data);
   }
 
   @override
-  Future<Response> postResetPassword(Map<String, dynamic> data) async {
-    return await dio.post('auth/reset-password', data: data);
+  Future<Response> patchResetPassword(Map<String, dynamic> data, String token) async {
+    return dio.patch(
+      RouteApiConsts.resetPasswordEndPoint,
+      data: data,
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
+    );
   }
+
+
 
 }

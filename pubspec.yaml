@@ -38,6 +38,7 @@ dependencies:
   flutter_svg: ^2.2.1
   dio: ^5.9.0
   flutter_bloc: ^9.1.1
+  flutter_native_splash: ^2.4.7
 
 
 dev_dependencies:
