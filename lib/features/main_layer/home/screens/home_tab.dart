@@ -1,7 +1,6 @@
-import 'dart:ui';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:movies_app/data/models/movie.dart';
 import 'package:movies_app/data/models/repository/movie_repository.dart';
 import 'package:movies_app/features/main_layer/home/bloc/home_bloc.dart';
@@ -72,7 +71,7 @@ class _HomeTabState extends State<HomeTab> {
                                 ),
                                 fit: BoxFit.cover,
                                 colorFilter: ColorFilter.mode(
-                                  Colors.black.withOpacity(0.3),
+                                  Colors.black.withValues(alpha: 0.3),
                                   BlendMode.dstATop,
                                 ),
                               ),
@@ -84,8 +83,8 @@ class _HomeTabState extends State<HomeTab> {
                                   end: Alignment.bottomCenter,
                                   colors: [
                                     Colors.transparent,
-                                    Colors.black.withOpacity(0.3),
-                                    Colors.black.withOpacity(0.85),
+                                    Colors.black.withValues(alpha: 0.3),
+                                    Colors.black.withValues(alpha: 0.85),
                                   ],
                                   stops: const [0.0, 0.5, 1.0],
                                 ),
@@ -162,7 +161,7 @@ class _HomeTabState extends State<HomeTab> {
                                                       vertical: 5),
                                                   decoration: BoxDecoration(
                                                     color: Colors.black
-                                                        .withOpacity(0.75),
+                                                        .withValues(alpha: 0.75),
                                                     borderRadius: BorderRadius
                                                         .circular(16),
                                                   ),
@@ -309,7 +308,7 @@ class _HomeTabState extends State<HomeTab> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 14, vertical: 5),
                           decoration: BoxDecoration(
-                            color: Colors.black.withOpacity(0.75),
+                            color: Colors.black.withValues(alpha: 0.75),
                             borderRadius: BorderRadius.circular(16),
                           ),
                           child: Row(
@@ -339,7 +338,7 @@ class _HomeTabState extends State<HomeTab> {
                               begin: Alignment.bottomCenter,
                               end: Alignment.topCenter,
                               colors: [
-                                Colors.black.withOpacity(0.9),
+                                Colors.black.withValues(alpha: 0.9),
                                 Colors.transparent
                               ],
                             ),

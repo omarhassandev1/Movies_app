@@ -5,8 +5,11 @@ import 'package:movies_app/data/models/repository/movie_repository.dart';
 import 'package:movies_app/features/main_layer/home/screens/home_tab.dart';
 import 'package:movies_app/features/main_layer/search/search_tab/search_tab.dart';
 
+import '../../profile/view/screens/profile.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+  static const String routeName = '/homeScreen';
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -19,13 +22,14 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    _pages = const [
-      HomeTab(),
-      SearchTab(),
-      // BrowseTab(),
-      // ProfileTab(),
+    _pages = [
+      const HomeTab(),
+      const SearchTab(),
+      Container(color: Colors.red),
+      const ProfileTab(),
     ];
   }
+
   Widget bottomIcon(String asset, {required bool isActive}) {
     return SvgPicture.asset(
       asset,
@@ -37,29 +41,23 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider(
       create: (_) => MovieRepository(),
       child: Scaffold(
         backgroundColor: Colors.black,
-        body: IndexedStack(
-          index: _currentIndex,
-          children: _pages,
-        ),
+        body: IndexedStack(index: _currentIndex, children: _pages),
 
         bottomNavigationBar: Container(
           margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           decoration: BoxDecoration(
             color: const Color(0xFF282A28),
             borderRadius: BorderRadius.circular(24),
-            border: Border.all(
-              color: const Color(0xFF282A28).withOpacity(0.8),
-              width: 1.5,
-            ),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.5),
+                color: Colors.black.withValues(alpha: 0.5),
                 blurRadius: 20,
                 offset: const Offset(0, -4),
               ),
@@ -79,23 +77,47 @@ class _HomeScreenState extends State<HomeScreen> {
               elevation: 0,
               items: [
                 BottomNavigationBarItem(
-                  icon: bottomIcon('assets/main_layer/home.svg', isActive: false),
-                  activeIcon: bottomIcon('assets/main_layer/home.svg', isActive: true),
+                  icon: bottomIcon(
+                    'assets/main_layer/home.svg',
+                    isActive: false,
+                  ),
+                  activeIcon: bottomIcon(
+                    'assets/main_layer/home.svg',
+                    isActive: true,
+                  ),
                   label: 'Home',
                 ),
                 BottomNavigationBarItem(
-                  icon: bottomIcon('assets/main_layer/search.svg', isActive: false),
-                  activeIcon: bottomIcon('assets/main_layer/search.svg', isActive: true),
+                  icon: bottomIcon(
+                    'assets/main_layer/search.svg',
+                    isActive: false,
+                  ),
+                  activeIcon: bottomIcon(
+                    'assets/main_layer/search.svg',
+                    isActive: true,
+                  ),
                   label: 'Search',
                 ),
                 BottomNavigationBarItem(
-                  icon: bottomIcon('assets/main_layer/explore.svg', isActive: false),
-                  activeIcon: bottomIcon('assets/main_layer/explore.svg', isActive: true),
+                  icon: bottomIcon(
+                    'assets/main_layer/explore.svg',
+                    isActive: false,
+                  ),
+                  activeIcon: bottomIcon(
+                    'assets/main_layer/explore.svg',
+                    isActive: true,
+                  ),
                   label: 'Browse',
                 ),
                 BottomNavigationBarItem(
-                  icon: bottomIcon('assets/main_layer/profile.svg', isActive: false),
-                  activeIcon: bottomIcon('assets/main_layer/profile.svg', isActive: true),
+                  icon: bottomIcon(
+                    'assets/main_layer/profile.svg',
+                    isActive: false,
+                  ),
+                  activeIcon: bottomIcon(
+                    'assets/main_layer/profile.svg',
+                    isActive: true,
+                  ),
                   label: 'Profile',
                 ),
               ],

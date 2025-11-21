@@ -13,6 +13,7 @@ import 'package:movies_app/features/auth/view/signup/signup_screen.dart';
 import 'package:movies_app/features/onboarding/view/get_started_screen.dart';
 import 'package:movies_app/features/onboarding/view/onboarding_screen.dart';
 
+import '../features/main_layer/home/screens/home_screen.dart';
 import '../features/main_layer/profile/view/screens/reset_password.dart';
 
 class AppRoutes {
@@ -31,5 +32,8 @@ class AppRoutes {
     // === Onboarding routes ===
     OnboardingScreen.routeName: (context) => const OnboardingScreen(),
     GetStartedScreen.routeName: (context) => const GetStartedScreen(),
+
+    // === Home routes ===
+    HomeScreen.routeName: (context) => const HomeScreen(),
   };
 }

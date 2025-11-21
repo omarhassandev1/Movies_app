@@ -61,11 +61,29 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
             fontWeight: FontWeight.bold,
           ),
         ),
+        centerTitle: true,
       ),
       body: BlocConsumer<ProfileCubit, ProfileState>(
         listener: (context, state) {
           if (state is ProfileUpdateSuccess) {
             Navigator.pop(context, true);
+            ScaffoldMessenger.of(context).showSnackBar(
+               const SnackBar(
+                backgroundColor: AppColors.mainColor,
+                content: Text("Profile updated successfully!"),
+                duration: Duration(seconds: 2),
+              ),
+            );
+
+          }else if (state is ProfileError) {
+            ScaffoldMessenger.of(context).showSnackBar(
+               SnackBar(
+                backgroundColor: AppColors.mainColor,
+                content: Text(state.errorMessage),
+                duration: const Duration(seconds: 2),
+              ),
+            );
+
           }
         },
         builder:
@@ -142,6 +160,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                     vertical: screenHeight * 0.03,
                   ),
                   child:
+
                       state is ProfileLoading
                           ? const Center(
                             child: CircularProgressIndicator(

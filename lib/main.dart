@@ -5,7 +5,7 @@ import 'package:movies_app/features/favorites/cubits/fav_cubit.dart';
 import 'package:movies_app/features/main_layer/profile/cubit/profile_cubit.dart';
 
 // ======== Feature import (from home-feature) ========
-import 'package:movies_app/features/main_layer/home/screens/home_screen.dart'; 
+import 'package:movies_app/features/main_layer/home/screens/home_screen.dart';
 
 // ======== Profile imports (from feature/profile) ========
 import 'package:movies_app/features/main_layer/profile/view/screens/profile.dart';
@@ -31,17 +31,27 @@ void main() async {
   runApp(
     MultiBlocProvider(
       providers: [
-        BlocProvider<AuthCubit>(create: (_) => AuthCubit(ServiceLocator.authRepo)),
-        BlocProvider<ProfileCubit>(create: (_) => ProfileCubit(profileRepo:ServiceLocator.profileRepo,)),
-        BlocProvider<FavCubit>(create: (_) => FavCubit(favRepo:ServiceLocator.favRepo,)),
+        BlocProvider<AuthCubit>(
+          create: (_) => AuthCubit(ServiceLocator.authRepo),
+        ),
+        BlocProvider<ProfileCubit>(
+          create: (_) => ProfileCubit(profileRepo: ServiceLocator.profileRepo),
+        ),
+        BlocProvider<FavCubit>(
+          create: (_) => FavCubit(favRepo: ServiceLocator.favRepo),
+        ),
       ],
-      child: MyApp(seenOnboarding: seenOnboarding,isLoggedIn: isLoggedIn,),
+      child: MyApp(seenOnboarding: seenOnboarding, isLoggedIn: isLoggedIn),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key, required this.seenOnboarding, required this.isLoggedIn});
+  const MyApp({
+    super.key,
+    required this.seenOnboarding,
+    required this.isLoggedIn,
+  });
   final bool seenOnboarding;
   final bool isLoggedIn;
 
@@ -50,18 +60,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
 
-      // تطبيق الثيم الداكن الذي كان موجوداً في home-feature
-      theme: ThemeData.dark(),
+      theme: AppTheme.themeData,
 
-      // === Keep AppRoutes from dev branch ===
       routes: AppRoutes.appRoutes,
 
-      // === dev branch logic for onboarding and initial route ===
       initialRoute:
-      isLoggedIn?
-      ProfileTab.routeName:
-          seenOnboarding ? LoginScreen.routeName : GetStartedScreen.routeName,
-          
+          isLoggedIn
+              ? HomeScreen.routeName
+              : seenOnboarding
+              ? LoginScreen.routeName
+              : GetStartedScreen.routeName,
     );
   }
 }
