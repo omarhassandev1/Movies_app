@@ -5,6 +5,7 @@ class Movie extends Equatable {
   final int year;
   final double rating;
   final String mediumCoverImage;
+  final String? largeCoverImage;
   final List<String> genres;
 
   const Movie({
@@ -13,20 +14,22 @@ class Movie extends Equatable {
     required this.year,
     required this.rating,
     required this.mediumCoverImage,
-    required this.genres,
+    this.largeCoverImage,
+    this.genres = const [],
   });
 
   factory Movie.fromJson(Map<String, dynamic> json) {
-    final List<dynamic> genreList = json['genres'] ?? [];
     return Movie(
-      id: json['id'] as int,
-      title: json['title'] as String? ?? 'Unknown',
-      year: json['year'] as int? ?? 0,
+      id: json['id'],
+      title: json['title'] ?? 'Unknown',
+      year: json['year'] ?? 0,
       rating: (json['rating'] as num?)?.toDouble() ?? 0.0,
-      mediumCoverImage: json['medium_cover_image'] as String? ?? '',
-      genres: genreList.cast<String>(),
+      mediumCoverImage: json['medium_cover_image'] ?? '',
+      largeCoverImage: json['large_cover_image'],
+      genres: (json['genres'] as List<dynamic>?)?.cast<String>() ?? [],
     );
   }
+
   @override
-  List<Object> get props => [id];
+  List<Object?> get props => [id];
 }

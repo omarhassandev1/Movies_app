@@ -1,9 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/data/models/repository/movie_repository.dart';
-
+import '../../../../data/models/repository/movie_repository.dart' show MovieRepository;
 import 'home_event.dart';
 import 'home_state.dart';
-
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final MovieRepository repository;
 
