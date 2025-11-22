@@ -5,7 +5,7 @@ import 'package:movies_app/data/models/repository/movie_repository.dart';
 import 'package:movies_app/features/main_layer/home/screens/home_tab.dart';
 import 'package:movies_app/features/main_layer/search/search_tab/search_tab.dart';
 
-import '../../profile/view/screens/profile.dart';
+import '../../profile/view/screens/profileTab.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -47,80 +47,81 @@ class _HomeScreenState extends State<HomeScreen> {
     return RepositoryProvider(
       create: (_) => MovieRepository(),
       child: Scaffold(
-        backgroundColor: Colors.black,
         body: IndexedStack(index: _currentIndex, children: _pages),
 
-        bottomNavigationBar: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          decoration: BoxDecoration(
-            color: const Color(0xFF282A28),
-            borderRadius: BorderRadius.circular(24),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.5),
-                blurRadius: 20,
-                offset: const Offset(0, -4),
-              ),
-            ],
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(24),
-            child: BottomNavigationBar(
-              currentIndex: _currentIndex,
-              onTap: (i) => setState(() => _currentIndex = i),
-              backgroundColor: Colors.transparent,
-              type: BottomNavigationBarType.fixed,
-              selectedItemColor: const Color(0xFFF6BD00),
-              unselectedItemColor: const Color(0xFFFFFFFF),
-              showSelectedLabels: false,
-              showUnselectedLabels: false,
-              elevation: 0,
-              items: [
-                BottomNavigationBarItem(
-                  icon: bottomIcon(
-                    'assets/main_layer/home.svg',
-                    isActive: false,
-                  ),
-                  activeIcon: bottomIcon(
-                    'assets/main_layer/home.svg',
-                    isActive: true,
-                  ),
-                  label: 'Home',
-                ),
-                BottomNavigationBarItem(
-                  icon: bottomIcon(
-                    'assets/main_layer/search.svg',
-                    isActive: false,
-                  ),
-                  activeIcon: bottomIcon(
-                    'assets/main_layer/search.svg',
-                    isActive: true,
-                  ),
-                  label: 'Search',
-                ),
-                BottomNavigationBarItem(
-                  icon: bottomIcon(
-                    'assets/main_layer/explore.svg',
-                    isActive: false,
-                  ),
-                  activeIcon: bottomIcon(
-                    'assets/main_layer/explore.svg',
-                    isActive: true,
-                  ),
-                  label: 'Browse',
-                ),
-                BottomNavigationBarItem(
-                  icon: bottomIcon(
-                    'assets/main_layer/profile.svg',
-                    isActive: false,
-                  ),
-                  activeIcon: bottomIcon(
-                    'assets/main_layer/profile.svg',
-                    isActive: true,
-                  ),
-                  label: 'Profile',
+        bottomNavigationBar: SafeArea(
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 16,),
+            decoration: BoxDecoration(
+              color: const Color(0xFF282A28),
+              borderRadius: BorderRadius.circular(24),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.5),
+                  blurRadius: 20,
+                  offset: const Offset(0, -4),
                 ),
               ],
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(24),
+              child: BottomNavigationBar(
+                currentIndex: _currentIndex,
+                onTap: (i) => setState(() => _currentIndex = i),
+                backgroundColor: Colors.transparent,
+                type: BottomNavigationBarType.fixed,
+                selectedItemColor: const Color(0xFFF6BD00),
+                unselectedItemColor: const Color(0xFFFFFFFF),
+                showSelectedLabels: false,
+                showUnselectedLabels: false,
+                elevation: 0,
+                items: [
+                  BottomNavigationBarItem(
+                    icon: bottomIcon(
+                      'assets/main_layer/home.svg',
+                      isActive: false,
+                    ),
+                    activeIcon: bottomIcon(
+                      'assets/main_layer/home.svg',
+                      isActive: true,
+                    ),
+                    label: 'Home',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: bottomIcon(
+                      'assets/main_layer/search.svg',
+                      isActive: false,
+                    ),
+                    activeIcon: bottomIcon(
+                      'assets/main_layer/search.svg',
+                      isActive: true,
+                    ),
+                    label: 'Search',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: bottomIcon(
+                      'assets/main_layer/explore.svg',
+                      isActive: false,
+                    ),
+                    activeIcon: bottomIcon(
+                      'assets/main_layer/explore.svg',
+                      isActive: true,
+                    ),
+                    label: 'Browse',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: bottomIcon(
+                      'assets/main_layer/profile.svg',
+                      isActive: false,
+                    ),
+                    activeIcon: bottomIcon(
+                      'assets/main_layer/profile.svg',
+                      isActive: true,
+                    ),
+                    label: 'Profile',
+                  ),
+                ],
+              ),
             ),
           ),
         ),
