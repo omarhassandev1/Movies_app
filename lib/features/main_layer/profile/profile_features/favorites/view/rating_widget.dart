@@ -1,7 +1,5 @@
-
 import 'package:flutter/material.dart';
-
-import '../../../common/theme/app_colors.dart';
+import '../../../../../../common/theme/app_colors.dart';
 
 class RatingWidget extends StatelessWidget {
   const RatingWidget({super.key, required this.rating});

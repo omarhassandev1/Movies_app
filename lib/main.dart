@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/app/app_routes.dart';
-import 'package:movies_app/features/favorites/cubits/fav_cubit.dart';
 import 'package:movies_app/features/main_layer/profile/cubit/profile_cubit.dart';
 
 // ======== Feature import (from home-feature) ========
 import 'package:movies_app/features/main_layer/home/screens/home_screen.dart';
+import 'package:movies_app/features/main_layer/profile/profile_features/history_service/cubit/history_cubit.dart';
 
 // ======== Profile imports (from feature/profile) ========
-import 'package:movies_app/features/main_layer/profile/view/screens/profile.dart';
+import 'package:movies_app/features/main_layer/profile/view/screens/profileTab.dart';
 
 // ======== Shared / Theme ========
 import 'package:movies_app/common/theme/app_theme.dart';
@@ -19,6 +19,7 @@ import 'package:movies_app/features/onboarding/view/get_started_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'common/service_locator/service_locator.dart';
 import 'features/auth/cubit/auth_cubit.dart';
+import 'features/main_layer/profile/profile_features/favorites/cubits/fav_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,6 +41,7 @@ void main() async {
         BlocProvider<FavCubit>(
           create: (_) => FavCubit(favRepo: ServiceLocator.favRepo),
         ),
+        BlocProvider<HistoryCubit>(create: (_) => HistoryCubit()),
       ],
       child: MyApp(seenOnboarding: seenOnboarding, isLoggedIn: isLoggedIn),
     ),
