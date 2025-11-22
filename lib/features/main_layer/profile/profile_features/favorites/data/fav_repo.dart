@@ -1,6 +1,6 @@
-import 'package:movies_app/features/favorites/data/fav_api_services.dart';
-import 'package:movies_app/features/favorites/data/models/favorites_response.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'fav_api_services.dart';
+import 'models/favorites_response.dart';
 
 class FavRepo {
   final FavApiServices apiServices;

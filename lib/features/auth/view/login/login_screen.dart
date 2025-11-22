@@ -4,7 +4,7 @@ import 'package:movies_app/common/theme/app_colors.dart';
 import 'package:movies_app/common/widgets/custom_main_button.dart';
 import 'package:movies_app/common/widgets/custom_textfield.dart';
 import 'package:movies_app/features/auth/view/signup/signup_screen.dart';
-import 'package:movies_app/features/main_layer/profile/view/screens/profile.dart';
+import 'package:movies_app/features/main_layer/profile/view/screens/profileTab.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../cubit/auth_cubit.dart';
 import '../../cubit/auth_state.dart';

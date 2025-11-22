@@ -7,6 +7,7 @@ import 'package:movies_app/features/main_layer/home/bloc/home_bloc.dart';
 import 'package:movies_app/features/main_layer/home/bloc/home_event.dart';
 import 'package:movies_app/features/main_layer/home/bloc/home_state.dart';
 import 'package:movies_app/features/main_layer/home/screens/category_movies.dart';
+import 'package:movies_app/features/main_layer/profile/profile_features/history_service/cubit/history_cubit.dart';
 import 'package:movies_app/features/movie_details/presentation/movie_detail_screen.dart';
 
 class HomeTab extends StatefulWidget {
@@ -92,14 +93,25 @@ class _HomeTabState extends State<HomeTab> {
                             ),
                           ),
                         ),
-                        Positioned(
-                          top: 40,
-                          left: 0,
-                          right: 0,
-                          child: Image.asset(
-                            'assets/common/Available Now.png',
-                            height: 110,
-                            fit: BoxFit.contain,
+                        SafeArea(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Image.asset(
+                                  'assets/common/Available Now.png',
+                                  height: 110,
+                                  fit: BoxFit.contain,
+                                ),
+                                Image.asset(
+                                  'assets/common/Watch Now.png',
+                                  height: 100,
+                                  fit: BoxFit.cover,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                         PageView.builder(
@@ -113,12 +125,15 @@ class _HomeTabState extends State<HomeTab> {
                             final scale = isCenter ? 1.0 : 0.8;
 
                             return GestureDetector(
-                              onTap: () =>
-                                  Navigator.push(
+                              onTap: () {
+                                context.read<HistoryCubit>().addToHistory(movie.id);
+
+                                Navigator.push(
                                     context,
                                     MaterialPageRoute(builder: (_) =>
                                         MovieDetailScreen(movieId: movie.id)),
-                                  ),
+                                  );
+                              },
                               child: AnimatedContainer(
                                 duration: const Duration(milliseconds: 600),
                                 curve: Curves.easeOutQuint,
@@ -196,16 +211,6 @@ class _HomeTabState extends State<HomeTab> {
                             );
                           },
                         ),
-                        Positioned(
-                          bottom: 30,
-                          left: 16,
-                          right: 16,
-                          child: Image.asset(
-                            'assets/common/Watch Now.png',
-                            height: 100,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
                       ],
                     ),
                   ),
@@ -281,12 +286,14 @@ class _HomeTabState extends State<HomeTab> {
               final m = movies[i];
 
               return GestureDetector(
-                onTap: () =>
-                    Navigator.push(
+                onTap: () {
+                  context.read<HistoryCubit>().addToHistory(m.id);
+                  Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (_) => MovieDetailScreen(movieId: m.id)),
-                    ),
+                    );
+                },
                 child: Container(
                   margin: const EdgeInsets.symmetric(horizontal: 8),
                   width: 150,

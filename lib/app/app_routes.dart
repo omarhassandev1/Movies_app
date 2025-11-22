@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 // === Imports from feature/profile ===
-import 'package:movies_app/features/main_layer/profile/view/screens/profile.dart';
+import 'package:movies_app/features/main_layer/profile/view/screens/profileTab.dart';
 // import 'package:movies_app/features/main_layer/profile/view/screens/update_profile.dart';
 
 // === Imports from dev branch (auth + onboarding) ===
