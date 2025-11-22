@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/features/favorites/cubits/fav_state.dart';
-import 'package:movies_app/features/favorites/data/fav_repo.dart';
+import '../data/fav_repo.dart';
+import 'fav_state.dart';
 
 class FavCubit extends Cubit<FavState> {
   final FavRepo favRepo;

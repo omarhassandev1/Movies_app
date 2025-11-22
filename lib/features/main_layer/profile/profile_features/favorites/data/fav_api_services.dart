@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-import '../../../common/consts/api_consts.dart';
+import '../../../../../../common/consts/api_consts.dart';
 
 class FavApiServices {
   final Dio dio;

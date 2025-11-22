@@ -1,4 +1,4 @@
-import 'package:movies_app/features/favorites/data/models/favorites_response.dart';
+import '../data/models/favorites_response.dart';
 
 abstract class FavState {}
 
