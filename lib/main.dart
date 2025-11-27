@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/app/app_routes.dart';
+
+// === merged imports (took both main + dev) ===
+import 'package:movies_app/features/main_layer/browse/view/browse_tab.dart';
 import 'package:movies_app/features/main_layer/profile/cubit/profile_cubit.dart';
 
 // ======== Feature import (from home-feature) ========
@@ -28,7 +31,6 @@ void main() async {
   bool seenOnboarding = prefs.getBool('seenOnboarding') ?? false;
   bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
 
-  // === Run the app with providers ===
   runApp(
     MultiBlocProvider(
       providers: [
@@ -41,9 +43,14 @@ void main() async {
         BlocProvider<FavCubit>(
           create: (_) => FavCubit(favRepo: ServiceLocator.favRepo),
         ),
-        BlocProvider<HistoryCubit>(create: (_) => HistoryCubit()),
+        BlocProvider<HistoryCubit>(
+          create: (_) => HistoryCubit(),
+        ),
       ],
-      child: MyApp(seenOnboarding: seenOnboarding, isLoggedIn: isLoggedIn),
+      child: MyApp(
+        seenOnboarding: seenOnboarding,
+        isLoggedIn: isLoggedIn,
+      ),
     ),
   );
 }
@@ -66,12 +73,12 @@ class MyApp extends StatelessWidget {
 
       routes: AppRoutes.appRoutes,
 
-      initialRoute:
-          isLoggedIn
-              ? HomeScreen.routeName
-              : seenOnboarding
-              ? LoginScreen.routeName
-              : GetStartedScreen.routeName,
+      // === Use the dev logic NOT BrowseTab (main) ===
+      initialRoute: isLoggedIn
+          ? HomeScreen.routeName
+          : seenOnboarding
+          ? LoginScreen.routeName
+          : GetStartedScreen.routeName,
     );
   }
 }

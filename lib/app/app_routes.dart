@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+// === Your imports (main branch) ===
+import '../features/main_layer/browse/view/film_details.dart';
+
 // === Imports from feature/profile ===
 import 'package:movies_app/features/main_layer/profile/view/screens/profileTab.dart';
 // import 'package:movies_app/features/main_layer/profile/view/screens/update_profile.dart';
@@ -18,6 +21,9 @@ import '../features/main_layer/profile/view/screens/reset_password.dart';
 
 class AppRoutes {
   static final Map<String, WidgetBuilder> appRoutes = {
+    // === Your route ===
+    FilmDetails.routeName: (context) => FilmDetails(),
+
     // === Profile routes ===
     ProfileTab.routeName: (context) => const ProfileTab(),
     ProfileResetPassword.routeName: (context) => const ProfileResetPassword(),
