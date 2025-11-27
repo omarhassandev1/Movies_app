@@ -6,14 +6,19 @@ class AuthLoading extends AuthState {}
 
 class AuthPassUpdated extends AuthState {}
 
-class AuthSuccess extends AuthState {
-  final String message;
-  final dynamic data;
-
-  AuthSuccess({required this.message, this.data});
-}
-
 class AuthFailure extends AuthState {
   final String errorMessage;
   AuthFailure(this.errorMessage);
+}
+
+class LoginSuccess extends AuthState {
+  final String message;
+  final dynamic data;
+  LoginSuccess({required this.message, this.data});
+}
+
+class RegisterSuccess extends AuthState {
+  final String message;
+  final dynamic data;
+  RegisterSuccess({required this.message, this.data});
 }
