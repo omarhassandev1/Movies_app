@@ -15,7 +15,7 @@ class AuthCubit extends Cubit<AuthState> {
       final response = await repo.login(email: email, password: password);
       final userToken = response['token'];
       final message = response['message'];
-      emit(AuthSuccess(data: userToken, message: message));
+      emit(LoginSuccess(data: userToken, message: message));
     } on DioException catch (e) {
       final data = e.response?.data;
       var message = data?['message'];
@@ -48,7 +48,7 @@ class AuthCubit extends Cubit<AuthState> {
         avatarNo: avatarNo,
         confirmPassword: confirmPassword,
       );
-      emit(AuthSuccess(message: message));
+      emit(RegisterSuccess(message: message));
     } on DioException catch (e) {
       final data = e.response?.data;
       var message = data?['message'];

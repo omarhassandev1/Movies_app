@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_app/common/theme/app_colors.dart';
 import 'package:movies_app/common/widgets/custom_main_button.dart';
 import 'package:movies_app/common/widgets/custom_textfield.dart';
 import 'package:movies_app/features/auth/view/login/login_screen.dart';
@@ -31,35 +32,40 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
-        if (state is AuthSuccess) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(const SnackBar(content: Row(
-            spacing: 10,
-            children: [
-              Icon(Icons.verified_outlined),
-              Text("Login Successful!"),
-            ],
-          )));
+        if (state is RegisterSuccess) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Row(
+                spacing: 10,
+                children: [
+                  Icon(Icons.verified_outlined),
+                  Text("Account Created!"),
+                ],
+              ),
+              backgroundColor: AppColors.greenColor,
+            ),
+          );
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => const LoginScreen()),
           );
         } else if (state is AuthFailure) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Row(
-            spacing: 10,
-            children: [
-              const Icon(Icons.error_outline),
-              Text(state.errorMessage),
-            ],
-          )));
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Row(
+                spacing: 10,
+                children: [
+                  const Icon(Icons.error_outline),
+                  Text(state.errorMessage),
+                ],
+              ),
+            ),
+          );
         }
       },
       builder: (context, state) {
         final isLoading = state is AuthLoading;
         return Scaffold(
-          appBar: AppBar(title: const Text('Login')),
+          appBar: AppBar(title: const Text('Register')),
           body: SingleChildScrollView(
             child: Column(
               spacing: 24,
