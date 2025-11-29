@@ -1,17 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-void main() {
-  runApp(
-    MaterialApp(
-      //theme: ThemeData(useMaterial3: true),
-      // home:  WebViewApp(url: widgurl),
-    ),
-  );
-}
 
 class WebViewApp extends StatefulWidget {
   WebViewApp({required this.url,required this.title, super.key});
-  //static const String routeName = '/webview';
   String url;
   String title;
   @override

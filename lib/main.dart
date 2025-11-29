@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/app/app_routes.dart';
+import 'package:movies_app/features/main_layer/main_layer.dart';
 import 'package:movies_app/features/main_layer/profile/cubit/profile_cubit.dart';
 
 // ======== Feature import (from home-feature) ========
-import 'package:movies_app/features/main_layer/home/screens/home_screen.dart';
 import 'package:movies_app/features/main_layer/profile/profile_features/history_service/cubit/history_cubit.dart';
-
-// ======== Profile imports (from feature/profile) ========
-import 'package:movies_app/features/main_layer/profile/view/screens/profileTab.dart';
 
 // ======== Shared / Theme ========
 import 'package:movies_app/common/theme/app_theme.dart';
@@ -68,7 +65,7 @@ class MyApp extends StatelessWidget {
 
       initialRoute:
           isLoggedIn
-              ? HomeScreen.routeName
+              ? MainLayer.routeName
               : seenOnboarding
               ? LoginScreen.routeName
               : GetStartedScreen.routeName,

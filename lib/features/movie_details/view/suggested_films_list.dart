@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../data/services/api_manager.dart';
-import 'horizintal_list_widget.dart';
+import '../../../data/services/api_manager.dart';
+import '../../main_layer/browse/view/browse_card.dart';
 class SuggestedMoviesList extends StatelessWidget {
   const SuggestedMoviesList({super.key});
 
@@ -23,7 +23,7 @@ class SuggestedMoviesList extends StatelessWidget {
             child: ListView.separated(
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  return Hhorizontallistwidget(
+                  return BrowseCard(
                     movie: sugesstedData[index],
                     containerHeight: 220,
                     containerWidth: 120,

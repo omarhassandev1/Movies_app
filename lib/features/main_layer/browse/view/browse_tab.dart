@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../data/services/api_manager.dart';
-import 'horizintal_list_widget.dart';
+import 'browse_card.dart';
 
 class BrowseTab extends StatelessWidget {
   const BrowseTab({super.key});
@@ -26,7 +26,7 @@ class BrowseTab extends StatelessWidget {
                 ),
                 itemCount: data.length, // Total items
                 itemBuilder: (context, index) {
-                  return Hhorizontallistwidget(
+                  return BrowseCard(
                       movie: data[index],
                       containerHeight: 350,
                       containerWidth: 230);

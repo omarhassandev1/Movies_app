@@ -4,6 +4,7 @@ import 'package:movies_app/common/theme/app_colors.dart';
 import 'package:movies_app/data/models/movie.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../../../../../../../gen/assets.gen.dart';
+import '../../../../../../movie_details/view/film_details.dart';
 import '../../../favorites/view/rating_widget.dart';
 import '../../../history_service/cubit/history_cubit.dart';
 import '../../cubit/history_state.dart';
@@ -23,7 +24,17 @@ class HistoryGridview extends StatelessWidget {
 
         if (state is HistoryError) {
           return Center(
-            child: Text("Error: ${state.message}"),
+            child: Column(
+              children: [
+                Text("Error: ${state.message}"),
+                ElevatedButton(
+                  onPressed: () {
+                    context.read<HistoryCubit>().loadHistory();
+                  },
+                  child: const Text("Reload"),
+                ),
+              ],
+            ),
           );
         }
 
@@ -64,7 +75,14 @@ class MovieCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => FilmDetails(movieId: movie.id),
+          ),
+        );
+      },
       child: Container(
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
         child: ClipRRect(

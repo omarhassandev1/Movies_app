@@ -2,27 +2,36 @@ import 'package:flutter/material.dart';
 import 'package:movies_app/common/theme/app_colors.dart';
 
 import '../../../../data/models/films_response.dart';
-import 'film_details.dart';
+import '../../../movie_details/view/film_details.dart';
 
 
-class Hhorizontallistwidget extends StatefulWidget {
-  Hhorizontallistwidget({required this.movie,required this.containerHeight,required this.containerWidth, super.key});
+class BrowseCard extends StatefulWidget {
+  BrowseCard({required this.movie,required this.containerHeight,required this.containerWidth, super.key});
   Movies movie;
   double containerHeight;
   double containerWidth;
 
   @override
-  State<Hhorizontallistwidget> createState() => _HhorizontallistwidgetState();
+  State<BrowseCard> createState() => _BrowseCardState();
 }
 
-class _HhorizontallistwidgetState extends State<Hhorizontallistwidget> {
+class _BrowseCardState extends State<BrowseCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, FilmDetails.routeName,
-            arguments: widget.movie
-        );
+        if (widget.movie.id != null) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => FilmDetails(movieId: widget.movie.id!),
+            ),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Movie ID is not available")),
+          );
+        }
       },
       child: SizedBox(
         width: widget.containerWidth,
@@ -30,12 +39,12 @@ class _HhorizontallistwidgetState extends State<Hhorizontallistwidget> {
         child: Stack(
           children: [
             ClipRRect(
+              borderRadius: BorderRadius.circular(20),
               child: Image.network(
                 widget.movie.mediumCoverImage ?? "https://th.bing.com/th/id/OIP.PLKhzDLPYVd_DiqnZkpjPgHaEK?rs=1&pid=ImgDetMain",
                 fit: BoxFit.fill,
                 height: 350,
               ),
-              borderRadius: BorderRadius.circular(20),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 8,left: 8),
@@ -50,8 +59,7 @@ class _HhorizontallistwidgetState extends State<Hhorizontallistwidget> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Text(widget.movie.rating.toString(),style: Theme.of(context).textTheme.bodySmall,),
-                    // Image.asset("assets/images/star.png")
-                    Icon(Icons.star,color: AppColors.mainColor,)
+                    const Icon(Icons.star,color: AppColors.mainColor,)
                   ],
                 ),
               ),

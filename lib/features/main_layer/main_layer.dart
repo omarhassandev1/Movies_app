@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:movies_app/common/theme/app_colors.dart';
 import 'package:movies_app/data/models/repository/movie_repository.dart';
+import 'package:movies_app/features/main_layer/browse/view/browse_tab.dart';
 import 'package:movies_app/features/main_layer/home/screens/home_tab.dart';
 import 'package:movies_app/features/main_layer/search/search_tab/search_tab.dart';
 import 'profile/view/screens/profileTab.dart';
@@ -24,7 +26,7 @@ class _MainLayerState extends State<MainLayer> {
     _pages = [
       const HomeTab(),
       const SearchTab(),
-  Container(color: Colors.red,),
+      const BrowseTab(),
       const ProfileTab(),
     ];
   }
@@ -35,7 +37,7 @@ class _MainLayerState extends State<MainLayer> {
       width: 30,
       height: 30,
       colorFilter: ColorFilter.mode(
-        isActive ? const Color(0xFFF6BD00) : const Color(0xFFFFFFFF),
+        isActive ? AppColors.mainColor : AppColors.whiteColor,
         BlendMode.srcIn,
       ),
     );
@@ -50,7 +52,7 @@ class _MainLayerState extends State<MainLayer> {
 
         bottomNavigationBar: SafeArea(
           child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 16,),
+            margin: const EdgeInsets.symmetric(horizontal: 16),
             decoration: BoxDecoration(
               color: const Color(0xFF282A28),
               borderRadius: BorderRadius.circular(24),

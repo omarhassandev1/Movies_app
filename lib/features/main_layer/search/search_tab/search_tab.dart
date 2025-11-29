@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movies_app/data/models/repository/movie_repository.dart';
-import 'package:movies_app/features/movie_details/presentation/movie_detail_screen.dart';
+import '../../../movie_details/view/film_details.dart';
 import '../../profile/profile_features/history_service/cubit/history_cubit.dart';
 import '../bloc/search_bloc.dart';
 import '../bloc/search_event.dart';
@@ -114,9 +114,7 @@ class _SearchTabState extends State<SearchTab> {
                                           context
                                               .read<HistoryCubit>()
                                               .addToHistory(m.id);
-                                          return MovieDetailScreen(
-                                            movieId: m.id,
-                                          );
+                                          return FilmDetails(movieId: m.id);
                                         },
                                       ),
                                     ),
