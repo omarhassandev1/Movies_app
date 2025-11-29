@@ -4,18 +4,17 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movies_app/data/models/repository/movie_repository.dart';
 import 'package:movies_app/features/main_layer/home/screens/home_tab.dart';
 import 'package:movies_app/features/main_layer/search/search_tab/search_tab.dart';
+import 'profile/view/screens/profileTab.dart';
 
-import '../../profile/view/screens/profileTab.dart';
-
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class MainLayer extends StatefulWidget {
+  const MainLayer({super.key});
   static const String routeName = '/homeScreen';
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<MainLayer> createState() => _MainLayerState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _MainLayerState extends State<MainLayer> {
   int _currentIndex = 0;
   late final List<Widget> _pages;
 
@@ -25,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _pages = [
       const HomeTab(),
       const SearchTab(),
-      Container(color: Colors.red),
+  Container(color: Colors.red,),
       const ProfileTab(),
     ];
   }

@@ -22,3 +22,5 @@ class RegisterSuccess extends AuthState {
   final dynamic data;
   RegisterSuccess({required this.message, this.data});
 }
+class LogoutSuccess extends AuthState {}
+

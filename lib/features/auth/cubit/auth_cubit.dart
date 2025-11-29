@@ -81,4 +81,14 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
+  Future<void> logout() async {
+    emit(AuthLoading());
+    try {
+      await repo.logout();
+      emit(LogoutSuccess());
+    } catch (e) {
+      emit(AuthFailure(e.toString()));
+    }
+  }
+
 }

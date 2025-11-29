@@ -35,6 +35,8 @@ class HistoryGridview extends StatelessWidget {
           }
 
           return GridView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
             padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 8),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
