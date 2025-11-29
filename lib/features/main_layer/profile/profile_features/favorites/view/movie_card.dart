@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:movies_app/features/main_layer/profile/profile_features/favorites/view/rating_widget.dart';
+import '../../../../../movie_details/view/film_details.dart';
 import '../data/models/favorites_response.dart';
 
 class MovieCard extends StatelessWidget {
@@ -10,7 +11,15 @@ class MovieCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        int id = int.parse(favMovie.movieId ?? '0');
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => FilmDetails(movieId: id),
+          ),
+        );
+      },
       child: Container(
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
         child: ClipRRect(

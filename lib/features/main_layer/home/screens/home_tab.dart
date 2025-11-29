@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/data/models/movie.dart';
 import 'package:movies_app/data/models/repository/movie_repository.dart';
+import 'package:movies_app/features/movie_details/view/film_details.dart';
 import 'package:movies_app/features/main_layer/home/bloc/home_bloc.dart';
 import 'package:movies_app/features/main_layer/home/bloc/home_event.dart';
 import 'package:movies_app/features/main_layer/home/bloc/home_state.dart';
 import 'package:movies_app/features/main_layer/home/screens/category_movies.dart';
-import 'package:movies_app/features/main_layer/profile/profile_features/history_service/cubit/history_cubit.dart';
-import 'package:movies_app/features/movie_details/presentation/movie_detail_screen.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
@@ -126,12 +125,10 @@ class _HomeTabState extends State<HomeTab> {
 
                             return GestureDetector(
                               onTap: () {
-                                context.read<HistoryCubit>().addToHistory(movie.id);
-
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(builder: (_) =>
-                                        MovieDetailScreen(movieId: movie.id)),
+                                        FilmDetails(movieId: movie.id)),
                                   );
                               },
                               child: AnimatedContainer(
@@ -287,11 +284,10 @@ class _HomeTabState extends State<HomeTab> {
 
               return GestureDetector(
                 onTap: () {
-                  context.read<HistoryCubit>().addToHistory(m.id);
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (_) => MovieDetailScreen(movieId: m.id)),
+                          builder: (_) => FilmDetails(movieId: m.id)),
                     );
                 },
                 child: Container(
