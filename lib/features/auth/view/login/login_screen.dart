@@ -4,7 +4,7 @@ import 'package:movies_app/common/theme/app_colors.dart';
 import 'package:movies_app/common/widgets/custom_main_button.dart';
 import 'package:movies_app/common/widgets/custom_textfield.dart';
 import 'package:movies_app/features/auth/view/signup/signup_screen.dart';
-import 'package:movies_app/features/main_layer/home/screens/home_screen.dart';
+import 'package:movies_app/features/main_layer/main_layer.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../cubit/auth_cubit.dart';
 import '../../cubit/auth_state.dart';
@@ -35,9 +35,20 @@ class LoginScreen extends StatelessWidget {
               backgroundColor: AppColors.greenColor,
             ),
           );
-          Navigator.of(
-            context,
-          ).pushReplacementNamed(HomeScreen.routeName);
+          Navigator.of(context).pushReplacementNamed(MainLayer.routeName);
+        } else if (state is LogoutSuccess) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Row(
+                spacing: 10,
+                children: [
+                  Icon(Icons.done),
+                  Text('Logged out Successfully'),
+                ],
+              ),
+              backgroundColor: AppColors.redColor,
+            ),
+          );
         } else if (state is AuthFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(

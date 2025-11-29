@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/app/app_routes.dart';
+
+// === merged imports (took both main + dev) ===
 import 'package:movies_app/features/main_layer/profile/cubit/profile_cubit.dart';
 
 // ======== Feature import (from home-feature) ========
-import 'package:movies_app/features/main_layer/home/screens/home_screen.dart';
+import 'package:movies_app/features/main_layer/main_layer.dart';
 import 'package:movies_app/features/main_layer/profile/profile_features/history_service/cubit/history_cubit.dart';
 
-// ======== Profile imports (from feature/profile) ========
-import 'package:movies_app/features/main_layer/profile/view/screens/profileTab.dart';
 
 // ======== Shared / Theme ========
 import 'package:movies_app/common/theme/app_theme.dart';
@@ -23,12 +23,10 @@ import 'features/main_layer/profile/profile_features/favorites/cubits/fav_cubit.
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   SharedPreferences prefs = await SharedPreferences.getInstance();
   bool seenOnboarding = prefs.getBool('seenOnboarding') ?? false;
   bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
 
-  // === Run the app with providers ===
   runApp(
     MultiBlocProvider(
       providers: [
@@ -41,9 +39,14 @@ void main() async {
         BlocProvider<FavCubit>(
           create: (_) => FavCubit(favRepo: ServiceLocator.favRepo),
         ),
-        BlocProvider<HistoryCubit>(create: (_) => HistoryCubit()),
+        BlocProvider<HistoryCubit>(
+          create: (_) => HistoryCubit(),
+        ),
       ],
-      child: MyApp(seenOnboarding: seenOnboarding, isLoggedIn: isLoggedIn),
+      child: MyApp(
+        seenOnboarding: seenOnboarding,
+        isLoggedIn: isLoggedIn,
+      ),
     ),
   );
 }
@@ -66,12 +69,12 @@ class MyApp extends StatelessWidget {
 
       routes: AppRoutes.appRoutes,
 
-      initialRoute:
-          isLoggedIn
-              ? HomeScreen.routeName
-              : seenOnboarding
-              ? LoginScreen.routeName
-              : GetStartedScreen.routeName,
+      // === Use the dev logic NOT BrowseTab (main) ===
+      initialRoute: isLoggedIn
+          ? MainLayer.routeName
+          : seenOnboarding
+          ? LoginScreen.routeName
+          : GetStartedScreen.routeName,
     );
   }
 }
