@@ -92,9 +92,9 @@ class AuthRepo {
 
   Future<void> logout() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.remove('token');           // remove token
-    await prefs.remove('watch_history');   // remove watch history
-    await prefs.setBool('isLoggedIn', false); // optional: update login status
+    await prefs.remove('token');
+    await prefs.remove('watch_history');
+    await prefs.setBool('isLoggedIn', false);
   }
 
 }

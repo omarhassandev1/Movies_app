@@ -85,7 +85,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           });
                         } else {
                           completeOnboarding();
-                          Navigator.of(context).pushNamed(LoginScreen.routeName);
+                          Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
                         }
                       },
                       text:

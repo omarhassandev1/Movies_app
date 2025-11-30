@@ -56,7 +56,7 @@ class AuthCubit extends Cubit<AuthState> {
       if (message is List) {
         message = message.join(', ');
       }
-      emit(AuthFailure(message ?? 'Something went wrong'));
+      emit(AuthFailure(message ?? 'Network error or bad request'));
     }
     catch (e) {
       emit(AuthFailure(e.toString()));
