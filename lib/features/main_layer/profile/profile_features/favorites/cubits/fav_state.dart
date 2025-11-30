@@ -6,7 +6,6 @@ class FavoriteInitial extends FavState {}
 
 class FavoriteLoading extends FavState {}
 
-
 class FavoriteGetSuccess extends FavState {
   final List<FavMovie> favMovies;
 
@@ -17,4 +16,10 @@ class FavoriteError extends FavState {
   final String errorMessage;
 
   FavoriteError({required this.errorMessage});
+}
+
+class FavoriteActionSuccess extends FavState {
+  final String message;
+
+  FavoriteActionSuccess({required this.message});
 }

@@ -6,6 +6,9 @@ import 'package:movies_app/features/main_layer/profile/profile_features/history_
 import 'package:movies_app/features/movie_details/view/web_view_app.dart';
 import '../../../data/models/films_response.dart';
 import '../../../data/services/api_manager.dart';
+import '../../main_layer/profile/profile_features/favorites/cubits/fav_cubit.dart';
+import '../../main_layer/profile/profile_features/favorites/data/models/favorites_response.dart';
+import 'favorite_toggle_icon.dart';
 
 class FilmDetails extends StatefulWidget {
   final int movieId;
@@ -62,21 +65,15 @@ class _FilmDetailsState extends State<FilmDetails> {
     final width = MediaQuery.of(context).size.width;
 
     if (isLoading) {
-      return const Scaffold(
-        body: Center(child: CircularProgressIndicator()),
-      );
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
     if (error != null) {
-      return Scaffold(
-        body: Center(child: Text("Error: $error")),
-      );
+      return Scaffold(body: Center(child: Text("Error: $error")));
     }
 
     if (movie == null) {
-      return const Scaffold(
-        body: Center(child: Text("Movie not available")),
-      );
+      return const Scaffold(body: Center(child: Text("Movie not available")));
     }
 
     return Scaffold(
@@ -119,16 +116,12 @@ class _FilmDetailsState extends State<FilmDetails> {
                       children: [
                         IconButton(
                           onPressed: () => Navigator.pop(context),
-                          icon: const Icon(Icons.arrow_back_ios_new,
-                              color: Colors.white),
+                          icon: const Icon(
+                            Icons.arrow_back_ios_new,
+                            color: Colors.white,
+                          ),
                         ),
-                        IconButton(
-                          onPressed: () {
-                            // context.read<FavCubit>().
-                          },
-                          icon: Icon(Icons.bookmark_outlined,
-                              color: iconColor, size: 40),
-                        ),
+                        FavoriteToggleIcon(movie: movie!,),
                       ],
                     ),
                   ),
@@ -171,26 +164,32 @@ class _FilmDetailsState extends State<FilmDetails> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => WebViewApp(
-                            url: movie!.url!,
-                            title: movie!.title ?? "",
-                          ),
+                          builder:
+                              (context) => WebViewApp(
+                                url: movie!.url!,
+                                title: movie!.title ?? "",
+                              ),
                         ),
                       );
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("Movie URL not available")),
+                        const SnackBar(
+                          content: Text("Movie URL not available"),
+                        ),
                       );
                     }
                   },
                   style: ButtonStyle(
-                    backgroundColor:
-                    MaterialStateProperty.all<Color>(AppColors.redColor),
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                      AppColors.redColor,
+                    ),
                     padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                        const EdgeInsets.all(15)),
+                      const EdgeInsets.all(15),
+                    ),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15)),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
                     ),
                   ),
                   child: const Text(
@@ -306,18 +305,21 @@ class _FilmDetailsState extends State<FilmDetails> {
                   for (var img in [
                     movie?.smallCoverImage,
                     movie?.mediumCoverImage,
-                    movie?.largeCoverImage
+                    movie?.largeCoverImage,
                   ].where((e) => e != null))
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8),
                       child: ClipRRect(
-                        borderRadius:
-                        const BorderRadius.all(Radius.circular(16)),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(16),
+                        ),
                         child: SizedBox(
                           width: double.infinity,
                           height: height * 0.18,
-                          child:
-                          Image.network(getValidImageUrl(img), fit: BoxFit.cover),
+                          child: Image.network(
+                            getValidImageUrl(img),
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ),
@@ -355,9 +357,11 @@ class _FilmDetailsState extends State<FilmDetails> {
             const SizedBox(height: 8),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text(movie?.summary?.isEmpty ?? true
-                  ? "No Summary to this movie"
-                  : movie!.summary!),
+              child: Text(
+                movie?.summary?.isEmpty ?? true
+                    ? "No Summary to this movie"
+                    : movie!.summary!,
+              ),
             ),
 
             const SizedBox(height: 16),
